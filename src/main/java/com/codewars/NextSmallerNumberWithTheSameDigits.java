@@ -1,13 +1,54 @@
 package com.codewars;
 
+import java.util.stream.Stream;
+
 public class NextSmallerNumberWithTheSameDigits {
 
     public static long nextSmaller(long n)
     {
+
+        String stringn = String.valueOf(n);
+
+
+        String[] splited = stringn.split("");
+        for (int i = splited.length-1; i > 0 ; i--) {
+            int j = i-1;
+
+            while(true) {
+                if(!testPair(splited[i], splited[j], j) ) {
+
+//                j > 0 ? j--;  break;
+                }
+
+
+            }
+
+
+
+        }
+
+
         return n;
     }
 
+    public static boolean testPair(String current, String compareTo, int placeOfCompared) {
+
+        if (current.compareTo(compareTo) < 0) {
+
+            if (!current.contains("0") && placeOfCompared==0) {
+                return false;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+
+
 }
+
+
 
 
 /*
