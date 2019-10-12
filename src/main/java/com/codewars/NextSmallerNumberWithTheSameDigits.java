@@ -1,6 +1,8 @@
 package com.codewars;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Collections;
+
 
 public class NextSmallerNumberWithTheSameDigits {
 
@@ -14,28 +16,47 @@ public class NextSmallerNumberWithTheSameDigits {
         for (int i = splited.length-1; i > 0 ; i--) {
             int j = i-1;
 
-            while(true) {
-                if(!testPair(splited[i], splited[j], j) ) {
 
-//                j > 0 ? j--;  break;
+            while(!testPair(splited[i], splited[j], j)) {
+                {
+                    if (j == 0) break;
+                    if (splited[i].equals(splited[j])) break;
+                    j--;
                 }
+            }
 
+            if (testPair(splited[i], splited[j], j)) {
+                String toChange = splited[j];
+                splited[j] = splited[i];
+                splited[i] = toChange;
+                StringBuilder result = new StringBuilder();
+
+                try {
+                    String[] restOfNumber = Arrays.copyOfRange(splited, j + 1, splited.length );
+                    Arrays.sort(restOfNumber, Collections.reverseOrder());
+                    for (int k = 0; k < restOfNumber.length; k++) {
+                        splited[splited.length-restOfNumber.length+k] = restOfNumber[k];
+
+                }
+                }
+                catch (IndexOutOfBoundsException e) {}
+
+
+                String collect = String.join("", splited);
+                return Long.parseLong(collect);
 
             }
 
-
-
         }
 
-
-        return n;
+        return -1L;
     }
 
     public static boolean testPair(String current, String compareTo, int placeOfCompared) {
 
         if (current.compareTo(compareTo) < 0) {
 
-            if (!current.contains("0") && placeOfCompared==0) {
+            if (current.contains("0") && placeOfCompared==0) {
                 return false;
             }
 
