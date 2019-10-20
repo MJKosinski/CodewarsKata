@@ -1,50 +1,61 @@
 package com.codewars;
 
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class NextSmallerNumberWithTheSameDigits {
 
-    public static long nextSmaller(long n)
-    {
+    public static long nextSmaller(long n) {
 
         String stringn = String.valueOf(n);
 
 
         String[] splited = stringn.split("");
-        for (int i = splited.length-1; i > 0 ; i--) {
-            int j = i-1;
+        for (int i = splited.length - 1; i > 0; i--) {
+            int j = i - 1;
 
-            while(true) {
-                if(!testPair(splited[i], splited[j], j) ) {
 
-//                j > 0 ? j--;  break;
+            if (Integer.parseInt(splited[i]) < Integer.parseInt(splited[j])) {
+                StringBuilder result = new StringBuilder();
+
+//                prepare the left side of nuber
+                if (i != 1) {
+                    String[] left = Arrays.copyOfRange(splited, 0, j);
+                    Stream<String> stream = Arrays.stream(left);
+                    stream.forEach(result::append);
                 }
 
+//                splited[j] is the number to change
+                int firstLarger = Integer.parseInt(splited[j]) - 1;
+                if (firstLarger == 0 && j == 0) return -1L;
+
+
+//                prepare right side of number
+                for (int k = firstLarger; k >= 0; k--) {
+                    Stream<String> stream = Arrays.stream(splited, i, splited.length);
+                    if (stream.anyMatch(Predicate.isEqual(k + ""))) {
+                        firstLarger = k;
+                        result.append(k);
+                        break;
+                    }
+                    stream.close();
+
+
+                }
+                String right = stringn.substring(i);
+                String replaced = right.replaceFirst(firstLarger + "", splited[j]);
+                String[] splitRight = replaced.split("");
+                Arrays.sort(splitRight, Collections.reverseOrder());
+                for (String s : splitRight) {
+                    result.append(s);
+                }
+                return Long.parseLong(result.toString());
 
             }
-
-
-
         }
-
-
-        return n;
+        return -1L;
     }
-
-    public static boolean testPair(String current, String compareTo, int placeOfCompared) {
-
-        if (current.compareTo(compareTo) < 0) {
-
-            if (!current.contains("0") && placeOfCompared==0) {
-                return false;
-            }
-
-            return true;
-        }
-        return false;
-    }
-
-
 
 }
 
