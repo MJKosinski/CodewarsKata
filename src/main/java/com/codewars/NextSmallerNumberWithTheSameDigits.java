@@ -28,13 +28,13 @@ public class NextSmallerNumberWithTheSameDigits {
 
 //                splited[j] is the number to change
                 int firstLarger = Integer.parseInt(splited[j]) - 1;
-                if (firstLarger == 0 && j == 0) return -1L;
+                if (firstLarger == 0 && j == 0) {return -1L;}
 
 
 //                prepare right side of number
                 for (int k = firstLarger; k >= 0; k--) {
                     Stream<String> stream = Arrays.stream(splited, i, splited.length);
-                    if (stream.anyMatch(Predicate.isEqual(k + ""))) {
+                    if (stream.anyMatch(Predicate.isEqual(String.valueOf(k)))) {
                         firstLarger = k;
                         result.append(k);
                         break;
@@ -44,7 +44,7 @@ public class NextSmallerNumberWithTheSameDigits {
 
                 }
                 String right = stringn.substring(i);
-                String replaced = right.replaceFirst(firstLarger + "", splited[j]);
+                String replaced = right.replaceFirst(String.valueOf(firstLarger), splited[j]);
                 String[] splitRight = replaced.split("");
                 Arrays.sort(splitRight, Collections.reverseOrder());
                 for (String s : splitRight) {
