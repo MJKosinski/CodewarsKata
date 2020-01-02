@@ -9,7 +9,7 @@ public class NextSmallerNumberWithTheSameDigitsTest {
     @Test
     public void basicTests() {
 //        assertEquals(12, NextSmallerNumberWithTheSameDigits.nextSmaller(21));66554433222
-        assertEquals(-1, NextSmallerNumberWithTheSameDigits.nextSmaller(10111111111111111L));
+        assertEquals(-1, NextSmallerNumberWithTheSameDigits.nextSmaller(112334455566L));
         assertEquals(790, NextSmallerNumberWithTheSameDigits.nextSmaller(907));
         assertEquals(513, NextSmallerNumberWithTheSameDigits.nextSmaller(531));
         assertEquals(1720, NextSmallerNumberWithTheSameDigits.nextSmaller(2017));
