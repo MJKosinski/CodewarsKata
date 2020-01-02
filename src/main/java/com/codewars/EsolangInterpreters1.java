@@ -6,14 +6,21 @@ public class EsolangInterpreters1 {
 
     public String interpret() {
 
-        char[] chars = code.toCharArray();
+        String[] chars = code.split("");
+        StringBuilder result = new StringBuilder();
         int memoryCell = 0;
+        for (int i = 0; i < chars.length; i++) {
 
-
-
-        return "TODO";
-
+            if (chars[i].equals("+")) {
+                memoryCell = (memoryCell + 1) % 256;
+            } else if (chars[i].equals(".")) {
+                result.append(Character.toChars(memoryCell));
+            }
+        }
+        return result.toString();
     }
+
+
 
     public EsolangInterpreters1(String code) {
         this.code = code;
