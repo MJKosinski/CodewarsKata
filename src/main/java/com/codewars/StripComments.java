@@ -1,8 +1,39 @@
 package com.codewars;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StripComments {
     public static String stripComments(String text, String[] commentSymbols) {
-        return "";
+
+        String[] split = text.split("\n");
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < split.length; i++) {
+
+
+            for (String c : commentSymbols) {
+                if(c.contains("$")) { c = c.replace("$","\\$"); }
+                if(c.contains("^")) { c = c.replace("^","\\^"); } // I don't like it
+
+                Pattern pattern = Pattern.compile(c+"(.*)$");
+                Matcher m = pattern.matcher(split[i]);
+                split[i] = m.replaceAll("");
+
+//                split[i] = split[i].replaceFirst(c + "[^\\$\\^]*", "");
+            }
+
+            split[i] = split[i].replaceFirst(" +$","");
+            result.append(split[i]);
+
+            if(i< split.length-1) {
+                result.append("\n");
+            }
+
+        }
+
+
+        return result.toString();
 
     }
 }
